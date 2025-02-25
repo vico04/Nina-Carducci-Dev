@@ -120,12 +120,33 @@
       $(`#${lightboxId}`).modal("toggle");
     },
     prevImage() {
-      let activeImage = null;
-      $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
-        }
+      const images = document.querySelectorAll("img.gallery-item"); // Récupère toutes les images de la galerie
+      const lightboxImage = document.querySelector(".lightboxImage"); // Récupère l'image dans la lightbox
+
+      if (!lightboxImage) return; // Si l'image de la lightbox n'existe pas, on arrête la fonction
+
+      let activeImage = null; // Variable pour stocker l'image active
+      // Trouver l'image actuellement active dans la galerie
+      images.forEach((img) => {
+          if (img.src === lightboxImage.src) {
+              activeImage = img; // Stocke l'image active
+          }
       });
+
+      if (!activeImage) return; // Si l'image active n'est pas trouvée, on arrête la fonction
+
+      let activeIndex = Array.from(images).indexOf(activeImage); // Trouve l'index de l'image active dans la galerie
+
+      // Calcul de l'index de l'image précédente, avec un effet boucle
+      const prevIndex = (activeIndex - 1) % images.length;
+
+      // Utiliser setTimeout pour forcer la mise à jour après un court délai
+      setTimeout(() => {
+          // Mise à jour du src de l'image dans la lightbox pour afficher l'image précédente
+          lightboxImage.src = images[prevIndex].src;
+          console.log("Image updated in lightbox:", lightboxImage.src); // Vérifie si l'URL change
+      }, 100);
+      
       let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
       let imagesCollection = [];
       if (activeTag === "all") {
@@ -159,12 +180,33 @@
       $(".lightboxImage").attr("src", $(next).attr("src"));
     },
     nextImage() {
-      let activeImage = null;
-      $("img.gallery-item").each(function() {
-        if ($(this).attr("src") === $(".lightboxImage").attr("src")) {
-          activeImage = $(this);
-        }
+      const images = document.querySelectorAll("img.gallery-item"); // Récupère toutes les images de la galerie
+      const lightboxImage = document.querySelector(".lightboxImage"); // Récupère l'image dans la lightbox
+
+      if (!lightboxImage) return; // Si l'image de la lightbox n'existe pas, on arrête la fonction
+
+      let activeImage = null; // Variable pour stocker l'image active
+      // Trouver l'image actuellement active dans la galerie
+      images.forEach((img) => {
+          if (img.src === lightboxImage.src) {
+              activeImage = img; // Stocke l'image active
+          }
       });
+
+      if (!activeImage) return; // Si l'image active n'est pas trouvée, on arrête la fonction
+
+      let activeIndex = Array.from(images).indexOf(activeImage); // Trouve l'index de l'image active dans la galerie
+
+      // Calcul de l'index de l'image suivante, avec un effet boucle
+      const nextIndex = (activeIndex + 1) % images.length;
+
+      // Utiliser setTimeout pour forcer la mise à jour après un court délai
+      setTimeout(() => {
+          // Mise à jour du src de l'image dans la lightbox pour afficher l'image suivante
+          lightboxImage.src = images[nextIndex].src;
+          console.log("Image updated in lightbox:", lightboxImage.src); // Vérifie si l'URL change
+      }, 100);
+
       let activeTag = $(".tags-bar span.active-tag").data("images-toggle");
       let imagesCollection = [];
       if (activeTag === "all") {
