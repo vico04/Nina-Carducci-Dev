@@ -44,8 +44,6 @@ body {
 	width: 20px;
 }
 
-
-
 #about {
 	display: flex;
 	background-color: #F6D2B8;
@@ -194,6 +192,8 @@ body {
 	padding: 2em 0;
 
 }
+
+
 
 .service {
 	background-color: white;
